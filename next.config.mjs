@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  env: {
+    WEATHERAPI: process.env.WEATHERAPI,
+  },
+};
 
 export default nextConfig;
