@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { SearchBar } from "./SearchBar";
@@ -58,44 +57,40 @@ const WeatherApp = () => {
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInput(value);
+    if (value.trim() === "") {
+      setSuggestions([]);
+      return;
+    }
     const filtered = cities.filter((entry) =>
       `${entry.city}, ${entry.country}`
         .toLowerCase()
-        .startsWith(value.toLowerCase())
+        .includes(value.toLowerCase())
     );
     setSuggestions(filtered.slice(0, 5));
   };
 
   const handleSuggestionClick = (suggestion) => {
-    let newCity = city;
-    let display = input;
-
     if (suggestion && suggestion.city) {
-      newCity = suggestion.city;
-      display = `${suggestion.city}, ${suggestion.country}`;
+      setInput(`${suggestion.city}, ${suggestion.country}`);
+      setCity(suggestion.city);
     } else {
       const cityFromInput = input.split(",")[0]?.trim();
       const matchedCity = cities.find(
         (entry) => entry.city.toLowerCase() === cityFromInput?.toLowerCase()
       );
       if (matchedCity) {
-        newCity = matchedCity.city;
-        display = `${matchedCity.city}, ${matchedCity.country}`;
-      } else {
-        display = "";
+        setInput(`${matchedCity.city}, ${matchedCity.country}`);
+        setCity(matchedCity.city);
       }
     }
-
-    setInput(display);
-    setCity(newCity);
     setSuggestions([]);
   };
 
   return (
     <main className="min-h-screen flex flex-col items-center relative">
       <div className="absolute inset-0 flex">
-        <div className="w-1/2 bg-white"></div>
-        <div className="w-1/2 bg-black"></div>
+        <div className="w-1/2 h-screen bg-white"></div>
+        <div className="w-1/2 h-screen bg-black"></div>{" "}
       </div>
 
       <div className="relative z-10 w-full max-w-5xl p-4">
@@ -110,4 +105,5 @@ const WeatherApp = () => {
     </main>
   );
 };
+
 export default WeatherApp;
