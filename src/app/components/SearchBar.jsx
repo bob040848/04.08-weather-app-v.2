@@ -40,7 +40,7 @@ export const SearchBar = ({
             {suggestions.map((suggestion, index) => (
               <li
                 key={index}
-                onClick={() => onSuggestionClick(suggestion)} // Fixed the syntax here
+                onClick={() => onSuggestionClick(suggestion)}
                 className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700"
               >
                 <MapPin className="w-4 h-4 mr-2 text-gray-500" />

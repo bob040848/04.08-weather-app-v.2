@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { SearchBar } from "./SearchBar";
@@ -38,6 +37,7 @@ const WeatherApp = () => {
 
   const fetchWeather = async (cityName) => {
     try {
+      setWeather(null);
       const res = await axios.get(
         `https://api.weatherapi.com/v1/forecast.json`,
         {
@@ -54,8 +54,8 @@ const WeatherApp = () => {
     }
   };
 
-  const handleInputChange = (e) => {
-    const value = e.target.value;
+  const handleInputChange = (event) => {
+    const value = event.target.value;
     setInput(value);
     if (value.trim() === "") {
       setSuggestions([]);
@@ -90,7 +90,7 @@ const WeatherApp = () => {
     <main className="min-h-screen flex flex-col items-center relative">
       <div className="absolute inset-0 flex">
         <div className="w-1/2 h-screen bg-white"></div>
-        <div className="w-1/2 h-screen bg-black"></div>{" "}
+        <div className="w-1/2 h-screen bg-black"></div>
       </div>
 
       <div className="relative z-10 w-full max-w-5xl p-4">
